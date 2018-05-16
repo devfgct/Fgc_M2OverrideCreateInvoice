@@ -28,16 +28,15 @@ class OrderInvoiceSaveBefore implements ObserverInterface {
 		$objectManager = \Magento\Framework\App\ObjectManager::getInstance();
 		$orderId = $this->_request->getParam('order_id');
 		$invoice = $observer->getEvent()->getInvoice();
-		$order = $invoice->getOrder();
+		// $order = $invoice->getOrder();
 		$productManager = $objectManager->create('Magento\Catalog\Model\Product');
 		$productsOutStock = $productsNotEnoughQty = [];
 		foreach ($invoice->getAllItems() as $item) {
 			$name = $item->getName();
-			$type = $item->getSku();
+			// $type = $item->getSku();
 			$productId = $item->getProductId();
 			$qty = $item->getQty();
-			$product = $productManager->load($productId);
-
+			// $product = $productManager->load($productId);
 			$_productStock = $this->_stockItemRepository->get($productId);
 			// $_productStock->getQty();
 			if(!$_productStock->getIsInStock()) {

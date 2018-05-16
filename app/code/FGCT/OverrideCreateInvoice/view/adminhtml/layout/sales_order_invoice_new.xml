@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <update handle="sales_invoice_item_price"/>
+    <body>
+		<!-- <referenceBlock name="order_items.default" remove="true"/> -->
+    	<!-- <referenceContainer name="content">
+            <block class="FGCT\OverrideCreateInvoice\Block\Adminhtml\Items\Renderer\FgcDefaultRenderer" name="order_items.default" template="FGCT_OverrideCreateInvoice::order/invoice/create/items/renderer/default.phtml"/>
+    	</referenceContainer> -->
+        <referenceBlock name="order_items.default">
+            <action method="setTemplate">
+                <argument name="template" translate="true" xsi:type="string">FGCT_OverrideCreateInvoice::order/invoice/create/items/renderer/default.phtml</argument>
+            </action>
+        </referenceBlock>
+    </body>
+</page>

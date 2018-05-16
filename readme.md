@@ -15,6 +15,3 @@ Use git:
 # INSTALLATION
 
 	bin/magento setup:upgrade
-	bin/magento setup:di:compile
-	bin/magento cache:clean && bin/magento cache:flush
-	bin/magento setup:static-content:deploy

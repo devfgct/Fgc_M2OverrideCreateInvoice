@@ -23,18 +23,21 @@ class DefaultRenderer extends \Magento\Sales\Block\Adminhtml\Items\Renderer\Defa
         \Magento\Backend\Block\Template\Context $context,
         \Magento\CatalogInventory\Api\StockRegistryInterface $stockRegistry,
         \Magento\CatalogInventory\Api\StockConfigurationInterface $stockConfiguration,
+        \Magento\CatalogInventory\Model\Stock\StockItemRepository $stockItemRepository,
         \Magento\Framework\Registry $registry,
         array $data = []
     ) {
         $this->_coreRegistry = $registry;
+        $this->_stockItemRepository = $stockItemRepository;
         parent::__construct($context, $stockRegistry, $stockConfiguration, $registry, $data);
 	}
 
     public function getErrorOutStock($productId) {
-        $productsId = explode(',',$this->getRequest()->getParam('productsId'));
-		if(in_array($productId, $productsId)) {
-            $html = '<div id="messages"><div class="messages"><div class="message message-error error"><div data-ui-id="messages-message-error">This product is out of stock</div></div></div></div>';
-            return $html;
+        $_productStock = $this->_stockItemRepository->get($productId);
+        $html = '';
+        if(!$_productStock->getIsInStock()) {
+            $html = '<div class="message message-error error"><div data-ui-id="messages-message-error">This product is out of stock</div></div>';
         }
+        return $html;
     }
 }

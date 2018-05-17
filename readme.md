@@ -9,7 +9,7 @@ Use modman [Linux](https://github.com/colinmollenhour/modman) | [Windows](https:
 Use git:
 
     git clone https://github.com/khoazero123/M2OverrideCreateInvoice.git
-    cp M2OverrideCreateInvoice/* magento_root/
+    cp -r M2OverrideCreateInvoice/* magento_root/
 
 
 # INSTALLATION

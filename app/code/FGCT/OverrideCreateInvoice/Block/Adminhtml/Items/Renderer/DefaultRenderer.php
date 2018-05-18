@@ -32,11 +32,16 @@ class DefaultRenderer extends \Magento\Sales\Block\Adminhtml\Items\Renderer\Defa
         parent::__construct($context, $stockRegistry, $stockConfiguration, $registry, $data);
 	}
 
-    public function getErrorOutStock($productId) {
+    public function getErrorOutStock($item) {
+        $productId = $item->getProductId();
         $_productStock = $this->_stockItemRepository->get($productId);
+        $qtySelected = intval($item->getQty());
+        $qtyProduct = $_productStock->getQty();
         $html = '';
         if(!$_productStock->getIsInStock()) {
-            $html = '<div class="message message-error error"><div data-ui-id="messages-message-error">This product is out of stock</div></div>';
+            $html = '<div class="message message-error error"><div data-ui-id="messages-message-error">This product is out of stock.</div></div>';
+        }elseif($qtySelected > $qtyProduct){
+            $html = '<div class="message message-error error"><div data-ui-id="messages-message-error">This product doesn\'t have enough quantity.</div></div>';
         }
         return $html;
     }

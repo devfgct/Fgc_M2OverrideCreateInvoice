@@ -101,8 +101,11 @@ class Save extends \Magento\Sales\Controller\Adminhtml\Order\Invoice\Save {
             $invoice = $this->invoiceService->prepareInvoice($order, $invoiceItems);
             foreach ($invoice->getAllItems() as $item) {
                 $_productStock = $this->_stockItemRepository->get($item->getProductId());
-                if(!$_productStock->getIsInStock()) {
-                    $this->messageManager->addError(__('Some of the products are out of stock!'));
+                $qtySelected = intval($item->getQty());
+                $qtyProduct = $_productStock->getQty();
+                if(!$_productStock->getIsInStock() || ($qtySelected > $qtyProduct)) {
+                    //$this->messageManager->addError(__('Some of the products are out of stock!'));
+                    $this->messageManager->addError(__('Some products do not have enough quantity to create invoice!'));
                     return $resultRedirect->setPath('sales/order_invoice/new/*', ['order_id' => $order->getId()]);
                 }
             }

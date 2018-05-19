@@ -11,7 +11,7 @@
 <?php $_item = $block->getItem() ?>
 <?php $block->setPriceDataObject($_item)?>
     <td class="col-product"><?= $block->getColumnHtml($_item, 'name') ?>
-    <?= $block->getErrorOutStock($_item->getProductId()) ?>
+    <?= $block->getErrorOutStock($_item) ?>
 	</td>
     <td class="col-price">
         <?= $block->getColumnHtml($_item, 'price') ?>

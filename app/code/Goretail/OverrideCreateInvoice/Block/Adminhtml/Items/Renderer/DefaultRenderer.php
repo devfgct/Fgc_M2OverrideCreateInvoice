@@ -6,7 +6,7 @@
 
 // @codingStandardsIgnoreFile
 
-namespace FGCT\OverrideCreateInvoice\Block\Adminhtml\Items\Renderer;
+namespace Goretail\OverrideCreateInvoice\Block\Adminhtml\Items\Renderer;
 
 /**
  * Order item render block

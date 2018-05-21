@@ -2,6 +2,6 @@
 
 \Magento\Framework\Component\ComponentRegistrar::register(
     \Magento\Framework\Component\ComponentRegistrar::MODULE,
-    'FGCT_OverrideCreateInvoice',
+    'Goretail_OverrideCreateInvoice',
     __DIR__
 );

@@ -1,5 +1,5 @@
 <?php
-namespace FGCT\OverrideCreateInvoice\Controller\Adminhtml\Order\Invoice;
+namespace Goretail\OverrideCreateInvoice\Controller\Adminhtml\Order\Invoice;
 
 use Magento\Backend\App\Action;
 use Magento\Framework\Exception\LocalizedException;

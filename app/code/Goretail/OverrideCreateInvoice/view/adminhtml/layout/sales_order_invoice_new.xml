@@ -6,14 +6,14 @@
             <referenceBlock name="sales_invoice_create">
                 <referenceBlock name="form">
                     <referenceBlock name="order_items">
-                        <block class="FGCT\OverrideCreateInvoice\Block\Adminhtml\Items\Renderer\DefaultRenderer" name="default" template="FGCT_OverrideCreateInvoice::order/invoice/create/items/renderer/default.phtml"/>
+                        <block class="Goretail\OverrideCreateInvoice\Block\Adminhtml\Items\Renderer\DefaultRenderer" name="default" template="Goretail_OverrideCreateInvoice::order/invoice/create/items/renderer/default.phtml"/>
                     </referenceBlock>
                 </referenceBlock>
             </referenceBlock>
     	</referenceContainer>
         <!-- <referenceBlock name="order_items.default">
             <action method="setTemplate">
-                <argument name="template" translate="true" xsi:type="string">FGCT_OverrideCreateInvoice::order/invoice/create/items/renderer/default.phtml</argument>
+                <argument name="template" translate="true" xsi:type="string">Goretail_OverrideCreateInvoice::order/invoice/create/items/renderer/default.phtml</argument>
             </action>
         </referenceBlock> -->
     </body>

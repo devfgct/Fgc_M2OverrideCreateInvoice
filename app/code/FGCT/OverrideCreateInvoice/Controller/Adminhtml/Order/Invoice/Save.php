@@ -54,6 +54,7 @@ class Save extends \Magento\Sales\Controller\Adminhtml\Order\Invoice\Save {
         ShipmentSender $shipmentSender,
         ShipmentFactory $shipmentFactory,
         InvoiceService $invoiceService,
+        \Magento\Catalog\Model\Product $product,
         \Magento\CatalogInventory\Model\Stock\StockItemRepository $stockItemRepository
     ) {
         $this->registry = $registry;
@@ -61,6 +62,7 @@ class Save extends \Magento\Sales\Controller\Adminhtml\Order\Invoice\Save {
         $this->shipmentSender = $shipmentSender;
         $this->shipmentFactory = $shipmentFactory;
         $this->invoiceService = $invoiceService;
+        $this->_product = $product;
         $this->_stockItemRepository = $stockItemRepository;
         parent::__construct($context, $registry, $invoiceSender, $shipmentSender, $shipmentFactory, $invoiceService);
     }
@@ -100,7 +102,10 @@ class Save extends \Magento\Sales\Controller\Adminhtml\Order\Invoice\Save {
 
             $invoice = $this->invoiceService->prepareInvoice($order, $invoiceItems);
             foreach ($invoice->getAllItems() as $item) {
-                $_productStock = $this->_stockItemRepository->get($item->getProductId());
+                $sku = $item->getSku();
+                //$productId = $item->getProductId(); // parent
+                $productId = $this->_product->getIdBySku($sku);
+                $_productStock = $this->_stockItemRepository->get($productId);
                 $qtySelected = intval($item->getQty());
                 $qtyProduct = $_productStock->getQty();
                 if(!$_productStock->getIsInStock() || ($qtySelected > $qtyProduct)) {
@@ -109,7 +114,7 @@ class Save extends \Magento\Sales\Controller\Adminhtml\Order\Invoice\Save {
                     return $resultRedirect->setPath('sales/order_invoice/new/*', ['order_id' => $order->getId()]);
                 }
             }
-            $invoice = false;
+            //$invoice = false;
             if (!$invoice) {
                 throw new LocalizedException(__('We can\'t save the invoice right now.'));
             }

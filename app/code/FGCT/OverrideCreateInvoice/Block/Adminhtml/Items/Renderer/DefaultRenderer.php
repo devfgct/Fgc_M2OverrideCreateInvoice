@@ -8,10 +8,6 @@
 
 namespace FGCT\OverrideCreateInvoice\Block\Adminhtml\Items\Renderer;
 
-use Magento\Sales\Model\Order\CreditMemo\Item as CreditMemoItem;
-use Magento\Sales\Model\Order\Invoice\Item as InvoiceItem;
-use Magento\Sales\Model\Order\Item as OrderItem;
-
 /**
  * Order item render block
  *
@@ -21,6 +17,7 @@ use Magento\Sales\Model\Order\Item as OrderItem;
 class DefaultRenderer extends \Magento\Sales\Block\Adminhtml\Items\Renderer\DefaultRenderer {
 	public function __construct(
         \Magento\Backend\Block\Template\Context $context,
+        \Magento\Catalog\Model\Product $product,
         \Magento\CatalogInventory\Api\StockRegistryInterface $stockRegistry,
         \Magento\CatalogInventory\Api\StockConfigurationInterface $stockConfiguration,
         \Magento\CatalogInventory\Model\Stock\StockItemRepository $stockItemRepository,
@@ -28,12 +25,15 @@ class DefaultRenderer extends \Magento\Sales\Block\Adminhtml\Items\Renderer\Defa
         array $data = []
     ) {
         $this->_coreRegistry = $registry;
+        $this->_product = $product;
         $this->_stockItemRepository = $stockItemRepository;
         parent::__construct($context, $stockRegistry, $stockConfiguration, $registry, $data);
 	}
 
     public function getErrorOutStock($item) {
-        $productId = $item->getProductId();
+        //$productId = $item->getProductId();
+        $sku = $item->getSku();
+        $productId = $this->_product->getIdBySku($sku);
         $_productStock = $this->_stockItemRepository->get($productId);
         $qtySelected = intval($item->getQty());
         $qtyProduct = $_productStock->getQty();
